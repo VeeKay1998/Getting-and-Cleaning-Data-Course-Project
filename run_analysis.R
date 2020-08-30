@@ -1,3 +1,5 @@
+#This program was written in R studio running on Windows 10.
+#To run in your PC replace dir locations to where UCI HAR Dataset folder is located
 #Accessing data from unzipped UCI HAR Dataset folder....
 x.train <- read.table("C:\\Users\\Venkat koushik\\R\\UCI HAR Dataset\\train\\X_train.txt")
 x.test <- read.table("C:\\Users\\Venkat koushik\\R\\UCI HAR Dataset\\test\\X_test.txt")
@@ -13,7 +15,7 @@ y <- rbind(y.train, y.test) #Here I merged y_train and y_test datasets.
 names(y) <- "act_labels" 
 sub <- rbind(sub.train, sub.test)
 names(sub) <- "subject_id"
-#Extraction of measurements on mean and standed deviation from x.
+#Extraction of measurements on mean and std deviation from x.
 mean.index <- grep("mean()", var.names[,2]) #Here I have obtained the index aka. locations where mean() is present.
 std.index <- grep("std()", var.names[,2]) #Here I have obtained the index aka. locations where std() is present.
 x.mean.std <- x[,c(mean.index, std.index)] #Here I extract mean and std variables. 
@@ -27,5 +29,5 @@ x.mean.std <- cbind(sub,x.mean.std) # Here I join Subject_id col. with x.mean.st
 library(dplyr) #Here I import dplyr package.
 #Average of each variable for each activity and each subject.
 tidyset <- x.mean.std %>% group_by(subject_id, act_labels) %>% summarise_all(mean)# tidy set
-write.table(tidyset, "C:\\Users\\Venkat koushik\\R\\UCI HAR Dataset\\tidyset.txt", row.name=FALSE)writind ttidy set to text file. 
+write.table(tidyset, "C:\\Users\\Venkat koushik\\R\\UCI HAR Dataset\\tidyset.txt", row.name=FALSE) #I have written tidy set to a text file. 
 
